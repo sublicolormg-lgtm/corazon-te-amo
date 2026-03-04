@@ -2,42 +2,53 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Para Ti ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Mi Amor ❤️</title>
+
 <style>
 body{
     margin:0;
-    background:black;
+    background: radial-gradient(circle at center, #0f0c29, #302b63, #24243e);
     display:flex;
+    flex-direction:column;
     justify-content:center;
     align-items:center;
     height:100vh;
     overflow:hidden;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
+    color:white;
+}
+
+h1{
+    position:absolute;
+    top:40px;
+    font-size:28px;
+    letter-spacing:3px;
+    text-shadow:0 0 10px #ff00ff, 0 0 20px #ff00ff;
 }
 
 .heart{
     position:relative;
-    width:300px;
-    height:300px;
+    width:320px;
+    height:320px;
     transform: rotate(-45deg);
-    animation: latido 2s infinite;
 }
 
 .heart span{
     position:absolute;
-    color:#ff00ff;
+    color:#ff4dff;
     font-size:18px;
+    opacity:0;
     text-shadow:
-        0 0 5px #ff00ff,
-        0 0 10px #ff00ff,
-        0 0 20px #ff00ff,
-        0 0 40px #ff00ff;
-    animation: brillo 3s infinite alternate;
+        0 0 5px #ff4dff,
+        0 0 10px #ff4dff,
+        0 0 20px #ff4dff,
+        0 0 40px #ff4dff;
+    transition: opacity 0.5s ease;
 }
 
-@keyframes brillo{
-    from{opacity:0.5;}
-    to{opacity:1;}
+.latido{
+    animation: latido 2s infinite;
 }
 
 @keyframes latido{
@@ -46,29 +57,49 @@ body{
 }
 </style>
 </head>
+
 <body>
 
-<div class="heart" id="heart"></div>
+<h1>Para Daniel 💖</h1> <!-- CAMBIA AQUI EL NOMBRE -->
+
+<div class="heart latido" id="heart"></div>
+
+<audio autoplay loop>
+    <source src="https://www2.cs.uic.edu/~i101/SoundFiles/Perfect.wav" type="audio/wav">
+</audio>
 
 <script>
 const heart = document.getElementById("heart");
+let elements = [];
 
-function crearTeAmo(x,y){
+function crearTexto(x,y){
     const span = document.createElement("span");
-    span.innerText = "Te amo";
+    span.innerText = "LO AMO";
     span.style.left = x + "px";
     span.style.top = y + "px";
     heart.appendChild(span);
+    elements.push(span);
 }
 
-for(let y=0; y<300; y+=25){
-    for(let x=0; x<300; x+=25){
-        let formula = Math.pow((x-150)/75,2) + Math.pow((y-150)/75,2) - 1;
+for(let y=0; y<320; y+=22){
+    for(let x=0; x<320; x+=22){
+        let formula = Math.pow((x-160)/80,2) + Math.pow((y-160)/80,2) - 1;
         if(formula <= 0){
-            crearTeAmo(x,y);
+            crearTexto(x,y);
         }
     }
 }
+
+let i = 0;
+function animar(){
+    if(i < elements.length){
+        elements[i].style.opacity = 1;
+        i++;
+        setTimeout(animar, 40);
+    }
+}
+
+animar();
 </script>
 
 </body>
