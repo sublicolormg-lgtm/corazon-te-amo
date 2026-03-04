@@ -64,9 +64,15 @@ h1{
 
 <div class="heart latido" id="heart"></div>
 
-<audio autoplay loop>
-    <source src="https://www2.cs.uic.edu/~i101/SoundFiles/Perfect.wav" type="audio/wav">
+<audio id="musica" loop>
+  <source src="Quédate.mp3" type="audio/mpeg">
 </audio>
+
+<script>
+window.addEventListener("click", function() {
+  document.getElementById("musica").play();
+});
+</script>
 
 <script>
 const heart = document.getElementById("heart");
