@@ -117,13 +117,15 @@ function crearTexto(x,y){
     elements.push(span);
 }
 
-for(let y=0; y<320; y+=22){
-    for(let x=0; x<320; x+=22){
-        let formula = Math.pow((x-160)/80,2) + Math.pow((y-160)/80,2) - 1;
-        if(formula <= 0){
-            crearTexto(x,y);
-        }
-    }
+// Fórmula real de corazón
+for(let t = 0; t < Math.PI * 2; t += 0.15){
+    let x = 16 * Math.pow(Math.sin(t),3);
+    let y = 13*Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t);
+
+    let posX = 160 + x * 10;
+    let posY = 160 - y * 10;
+
+    crearTexto(posX, posY);
 }
 
 let i = 0;
@@ -131,11 +133,11 @@ function animar(){
     if(i < elements.length){
         elements[i].style.opacity = 1;
         i++;
-        setTimeout(animar, 35);
+        setTimeout(animar, 40);
     } else {
         setTimeout(()=> {
             mensaje.style.opacity = 1;
-        }, 1000);
+        }, 800);
     }
 }
 
