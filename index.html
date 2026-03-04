@@ -3,48 +3,67 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Mi Amor ❤️</title>
+<title>Para José Armando ❤️</title>
 
 <style>
 body{
     margin:0;
-    background: radial-gradient(circle at center, #0f0c29, #302b63, #24243e);
+    background:black;
     display:flex;
-    flex-direction:column;
     justify-content:center;
     align-items:center;
     height:100vh;
     overflow:hidden;
     font-family: 'Segoe UI', sans-serif;
     color:white;
+    text-align:center;
 }
 
-h1{
+/* Pantalla inicial */
+#inicio{
     position:absolute;
-    top:40px;
-    font-size:28px;
+    font-size:26px;
     letter-spacing:3px;
-    text-shadow:0 0 10px #ff00ff, 0 0 20px #ff00ff;
+    cursor:pointer;
+    animation: parpadeo 1.5s infinite;
 }
 
+@keyframes parpadeo{
+    0%,100%{opacity:1;}
+    50%{opacity:0.4;}
+}
+
+/* Nombre arriba */
+#nombre{
+    position:absolute;
+    top:50px;
+    font-size:28px;
+    letter-spacing:4px;
+    opacity:0;
+    transition: opacity 2s ease;
+    text-shadow:0 0 10px #ff4dff, 0 0 20px #ff4dff;
+}
+
+/* Corazón */
 .heart{
     position:relative;
     width:320px;
     height:320px;
     transform: rotate(-45deg);
+    display:none;
 }
 
 .heart span{
     position:absolute;
     color:#ff4dff;
-    font-size:18px;
+    font-size:15px;
     opacity:0;
     text-shadow:
         0 0 5px #ff4dff,
         0 0 10px #ff4dff,
         0 0 20px #ff4dff,
         0 0 40px #ff4dff;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.4s ease;
 }
 
 .latido{
@@ -55,27 +74,38 @@ h1{
     0%,100%{transform: rotate(-45deg) scale(1);}
     50%{transform: rotate(-45deg) scale(1.1);}
 }
+
+/* Mensaje final */
+#mensaje{
+    position:absolute;
+    bottom:60px;
+    font-size:18px;
+    width:80%;
+    opacity:0;
+    transition: opacity 3s ease;
+}
 </style>
 </head>
 
 <body>
 
-<h1>Para EJA 💖</h1> <!-- CAMBIA AQUI EL NOMBRE -->
+<div id="inicio">Haz clic aquí ❤️</div>
 
-<div class="heart latido" id="heart"></div>
+<div id="nombre">José Armando 💖</div>
 
-<audio id="musica" loop>
-  <source src="Quédate.mp3" type="audio/mpeg">
-</audio>
+<div class="heart" id="heart"></div>
 
-<script>
-window.addEventListener("click", function() {
-  document.getElementById("musica").play();
-});
-</script>
+<div id="mensaje">
+SI UN DIA ME NECESITA, SABE DONDE ENCONTRARME,<br>
+YO ME ARRANCARIA EL CORAZON POR DARSELO A USTED
+</div>
 
 <script>
+const inicio = document.getElementById("inicio");
 const heart = document.getElementById("heart");
+const mensaje = document.getElementById("mensaje");
+const nombre = document.getElementById("nombre");
+
 let elements = [];
 
 function crearTexto(x,y){
@@ -101,11 +131,21 @@ function animar(){
     if(i < elements.length){
         elements[i].style.opacity = 1;
         i++;
-        setTimeout(animar, 40);
+        setTimeout(animar, 35);
+    } else {
+        setTimeout(()=> {
+            mensaje.style.opacity = 1;
+        }, 1000);
     }
 }
 
-animar();
+inicio.addEventListener("click", function(){
+    inicio.style.display="none";
+    heart.style.display="block";
+    heart.classList.add("latido");
+    nombre.style.opacity = 1;
+    animar();
+});
 </script>
 
 </body>
